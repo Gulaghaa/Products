@@ -1,14 +1,17 @@
 const productsPerPage = 10;
 let currentPage = 1;
 let totalProducts = 0;
+let storedPage = 1;
 
 totalAPIurl = 'https://dummyjson.com/products?limit=100';
 
-const fetchData = async (url) => {
+const fetchData = async (url, page = currentPage) => {
     try {
         const response = await axios.get(url);
         const products = response.data.products;
         totalProducts = products.length;
+        currentPage = page;
+        storedPage = currentPage;
         displayProducts(products);
         renderPagination();
         console.log('Products data:', products);
@@ -21,7 +24,7 @@ const fetchDataById = async (productId) => {
     const url = `https://dummyjson.com/products/${productId}`;
     try {
         const response = await axios.get(url);
-        const product = response.data; // Assuming the detailed product information is in the response
+        const product = response.data;
         displayProductDetails(product);
         console.log('Product details:', product);
     } catch (error) {
@@ -51,7 +54,6 @@ const displayProducts = (products) => {
         }
     }
 
-    // Add event listeners to the details buttons
     const detailsButtons = document.querySelectorAll('.details-button');
     detailsButtons.forEach(button => {
         button.addEventListener('click', (event) => {
@@ -66,7 +68,6 @@ const displayProductDetails = (product) => {
     const detailsContainer = document.getElementById('productDetails');
     const paginationContainer = document.getElementById('pagination');
 
-    // Hide product list and pagination, and show details
     productContainer.style.display = 'none';
     paginationContainer.style.display = 'none';
     detailsContainer.style.display = 'block';
@@ -84,27 +85,28 @@ const clearProductDetails = () => {
     const detailsContainer = document.getElementById('productDetails');
     const paginationContainer = document.getElementById('pagination');
 
-    // Show product list and pagination, hide details
     productContainer.style.display = 'block';
     paginationContainer.style.display = 'block';
     detailsContainer.style.display = 'none';
-
-    detailsContainer.innerHTML = ''; // Clear the details container
+    detailsContainer.innerHTML = '';
+    fetchData(totalAPIurl, storedPage);
 };
 
 const renderPagination = () => {
     const paginationContainer = document.getElementById('pagination');
     paginationContainer.innerHTML = '';
-
     const totalPages = Math.ceil(totalProducts / productsPerPage);
-
+    
     for (let i = 1; i <= totalPages; i++) {
         const pageItem = document.createElement('button');
         pageItem.textContent = i;
         pageItem.classList.add('page-item');
+
         if (i === currentPage) {
-            pageItem.classList.add('active');
+            pageItem.style.backgroundColor = '#007BFF'; 
+            pageItem.style.color = '#fff';
         }
+
         pageItem.addEventListener('click', () => changePage(i));
         paginationContainer.appendChild(pageItem);
     }
@@ -139,6 +141,4 @@ const handleError = (error) => {
         console.error('Error setting up the request:', error.message);
     }
 };
-
-// Initial data fetch
 fetchData(totalAPIurl);
