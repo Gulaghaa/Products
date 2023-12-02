@@ -21,7 +21,7 @@ const fetchData = async (url, page = currentPage) => {
                 return false;
             });
         });
-        
+
 
         totalProducts = filteredProducts.length;
         currentPage = page;
@@ -36,9 +36,10 @@ const fetchData = async (url, page = currentPage) => {
 
 const handleSearchInput = (event) => {
     searchQuery = event.target.value;
-    currentPage = 1; 
+    currentPage = 1;
     fetchData(totalAPIurl);
 };
+
 
 const displayProducts = (products) => {
     const container = document.getElementById('productContainer');
@@ -53,6 +54,9 @@ const displayProducts = (products) => {
             const productElement = document.createElement('div');
             productElement.classList.add('productElement');
             productElement.innerHTML = `
+                <img src="${product.images[0]}"/>
+                <button class='prev-slide' >previous</button>
+                <button class='next-slide' >next</button>
                 <h3>${product.title}</h3>
                 <p>Price: ${product.price}</p>
                 <button class="details-button" data-product-id="${product.id}">View Details</button>
@@ -62,6 +66,8 @@ const displayProducts = (products) => {
         }
     }
 
+    
+
     const detailsButtons = document.querySelectorAll('.details-button');
     detailsButtons.forEach(button => {
         button.addEventListener('click', (event) => {
@@ -70,6 +76,8 @@ const displayProducts = (products) => {
         });
     });
 };
+
+
 
 const renderPagination = () => {
     const paginationContainer = document.getElementById('pagination');
@@ -137,29 +145,37 @@ const displayProductDetails = (product) => {
     const productContainer = document.getElementById('productContainer');
     const detailsContainer = document.getElementById('productDetails');
     const paginationContainer = document.getElementById('pagination');
+    const searchContainer = document.getElementById('searchContainer');
 
     productContainer.style.display = 'none';
     paginationContainer.style.display = 'none';
+    searchContainer.style.display = 'none';
     detailsContainer.style.display = 'block';
+
 
     detailsContainer.innerHTML = `
         <h2>${product.title}</h2>
         <p>Price: ${product.price}</p>
         <p>Description: ${product.description}</p>
         <button onclick="clearProductDetails()">Close Details</button>
-    `;
+    `;  
+
 };
 
 const clearProductDetails = () => {
     const productContainer = document.getElementById('productContainer');
     const detailsContainer = document.getElementById('productDetails');
     const paginationContainer = document.getElementById('pagination');
+    const searchContainer = document.getElementById('searchContainer');
 
-    productContainer.style.display = 'block';
+    productContainer.style.display = 'flex';
     paginationContainer.style.display = 'block';
+    searchContainer.style.display = 'flex'
     detailsContainer.style.display = 'none';
     detailsContainer.innerHTML = '';
     fetchData(totalAPIurl, storedPage);
+    
+    
 };
 
 fetchData(totalAPIurl);
