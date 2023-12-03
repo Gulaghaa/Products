@@ -1,3 +1,4 @@
+let selectedCategory = '';
 const productsPerPage = 10;
 let currentPage = 1;
 let totalProducts = 0;
@@ -5,23 +6,54 @@ let storedPage = 1;
 let searchQuery = '';
 const totalAPIurl = 'https://dummyjson.com/products?limit=100';
 
+const fetchCategories = async () => {
+    try {
+        const response = await axios.get('https://dummyjson.com/products/categories');
+        const categories = response.data;
+
+        const categorySelect = document.getElementById('categorySelect');
+        categorySelect.innerHTML = '<option value="">All Categories</option>';
+
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category;
+            option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+            categorySelect.appendChild(option);
+        });
+
+        fetchData(totalAPIurl);
+    } catch (error) {
+        handleError(error);
+    }
+};
+
+fetchCategories();
+
+const handleCategoryChange = () => {
+    selectedCategory = document.getElementById('categorySelect').value;
+    currentPage = 1; 
+    fetchData(totalAPIurl);
+};
+
 const fetchData = async (url, page = currentPage) => {
     try {
         const response = await axios.get(url);
         const products = response.data.products;
 
         const filteredProducts = products.filter(product => {
-            return Object.values(product).some(value => {
-                if (typeof value === 'string' && value.toLowerCase().includes(searchQuery.toLowerCase())) {
-                    return true;
-                }
-                if (typeof value === 'number' && value.toString().includes(searchQuery)) {
-                    return true;
-                }
-                return false;
-            });
+            return (
+                (selectedCategory === '' || product.category === selectedCategory) &&
+                Object.values(product).some(value => {
+                    if (typeof value === 'string' && value.toLowerCase().includes(searchQuery.toLowerCase())) {
+                        return true;
+                    }
+                    if (typeof value === 'number' && value.toString().includes(searchQuery)) {
+                        return true;
+                    }
+                    return false;
+                })
+            );
         });
-
 
         totalProducts = filteredProducts.length;
         currentPage = page;
@@ -58,7 +90,7 @@ const displayProducts = (products) => {
             const productElement = document.createElement('div');
             productElement.classList.add('productElement');
             productElement.innerHTML = `
-                 <div class='thumbnail'>
+                <div class='thumbnail'>
                     <div class='absolute'></div>
                     <img src="${product.thumbnail}"/>
                 </div>
@@ -80,8 +112,6 @@ const displayProducts = (products) => {
         }
     }
 
-
-
     const detailsButtons = document.querySelectorAll('.details-button');
     detailsButtons.forEach(button => {
         button.addEventListener('click', (event) => {
@@ -91,12 +121,16 @@ const displayProducts = (products) => {
     });
 };
 
-
-
 const renderPagination = () => {
     const paginationContainer = document.getElementById('pagination');
     paginationContainer.innerHTML = '';
     const totalPages = Math.ceil(totalProducts / productsPerPage);
+
+    const prevButton = document.createElement('button');
+    prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    prevButton.classList.add('page-item');
+    prevButton.addEventListener('click', prevPage);
+    paginationContainer.appendChild(prevButton);
 
     for (let i = 1; i <= totalPages; i++) {
         const pageItem = document.createElement('button');
@@ -111,7 +145,15 @@ const renderPagination = () => {
         pageItem.addEventListener('click', () => changePage(i));
         paginationContainer.appendChild(pageItem);
     }
+
+    const nextButton = document.createElement('button');
+    nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    nextButton.classList.add('page-item');
+    nextButton.addEventListener('click', nextPage);
+    paginationContainer.appendChild(nextButton);
 };
+
+
 
 const changePage = (newPage) => {
     if (newPage >= 1 && newPage <= Math.ceil(totalProducts / productsPerPage)) {
@@ -121,16 +163,18 @@ const changePage = (newPage) => {
 };
 
 const prevPage = () => {
-    if (currentPage > 1) {
-        currentPage--;
-        fetchData(totalAPIurl);
-    }
-};
-
-const nextPage = () => {
-    currentPage++;
+    const totalPages = Math.ceil(totalProducts / productsPerPage);
+    currentPage = (currentPage - 2 + totalPages) % totalPages + 1;
     fetchData(totalAPIurl);
 };
+
+
+const nextPage = () => {
+    const totalPages = Math.ceil(totalProducts / productsPerPage);
+    currentPage = (currentPage % totalPages) + 1;
+    fetchData(totalAPIurl);
+};
+
 
 const handleError = (error) => {
     if (error.response) {
@@ -166,14 +210,12 @@ const displayProductDetails = (product) => {
     searchContainer.style.display = 'none';
     detailsContainer.style.display = 'block';
 
-
     detailsContainer.innerHTML = `
         <h2>${product.title}</h2>
         <p>Price: ${product.price}</p>
         <p>Description: ${product.description}</p>
         <button onclick="clearProductDetails()">Close Details</button>
     `;
-
 };
 
 const clearProductDetails = () => {
@@ -188,8 +230,6 @@ const clearProductDetails = () => {
     detailsContainer.style.display = 'none';
     detailsContainer.innerHTML = '';
     fetchData(totalAPIurl, storedPage);
-
-
 };
 
 fetchData(totalAPIurl);

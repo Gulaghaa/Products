@@ -17,12 +17,13 @@
 }
 
 #productContainer {
-  border: 1px solid red;
-  height: 90vh;
+  /* border: 1px solid red; */
+  height: 86vh;
   display: flex;
   /* justify-content: center; */
   flex-wrap: wrap;
   overflow: scroll;
+  align-items: baseline;
   margin-top: 10px;
   gap: 1%;
   padding-left: 20px;
@@ -36,11 +37,48 @@ body {
 }
 
 #searchContainer {
-  height: 5vh;
+  height: 6vh;
   display: flex;
   align-items: center;
-  padding: 0 10px;
-  border: 1px solid red;
+  gap: 50px;
+  padding: 0 35px;
+  /* border: 1px solid red; */
+}
+
+#categorySelect{
+  width: 200px;
+  height: 30px;
+  font-family: 'Nova Square', sans-serif;
+  background-color: rgb(67, 80, 119);
+  border: 1px solid yellow;
+  color: gold;
+  outline: none;
+  border-radius: 5px;
+  /* background-color: gold; */
+}
+
+#pagination{
+  height: 7vh;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 7px;
+  gap: 10px;
+}
+
+.page-item{
+  font-family: 'Nova Square', sans-serif;
+  font-size: 20px;
+  height: 90%;
+  border: none;
+  aspect-ratio: 1/1;
+  border-radius: 5px;
+}
+
+.page-item:hover{
+  background-color: rgb(67, 80, 119);
+  color: gold;
 }
 
 .productElement {
@@ -180,11 +218,11 @@ body {
 .search > div:after {
   content: "";
   background: white;
-  width: 2px;
-  height: 10px;
+  width: 4px;
+  height: 18px;
   position: absolute;
-  top: 20px;
-  right: -1px;
+  top: 31px;
+  right: -2px;
   transform: rotate(135deg);
 }
 
@@ -192,9 +230,9 @@ body {
   color: white;
   font-size: 14px;
   background: transparent;
-  width: 20px;
-  height: 20px;
-  padding: 10px;
+  width: 30px;
+  height: 30px;
+  padding: 17px;
   border: solid 3px white;
   outline: none;
   border-radius: 35px;
@@ -214,4 +252,25 @@ body {
 .search > div > input:focus,
 .search > div > input:not(:placeholder-shown) {
   width: 250px;
+}
+
+
+@media only screen and (max-width: 1100px) {
+  .productElement{
+    width: 32%;
+  }
+}
+
+@media only screen and (max-width: 890px) {
+  .productElement{
+    width: 49%;
+  }
+}
+@media only screen and (max-width: 610px) {
+  .productElement{
+    width: 100%;
+  }
+  #productContainer{
+    padding-left: 0px;
+  }
 }
