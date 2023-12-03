@@ -40,6 +40,10 @@ const handleSearchInput = (event) => {
     fetchData(totalAPIurl);
 };
 
+function roundToDecimal(number, decimalPlaces) {
+    let roundedNumber = parseFloat(number.toFixed(decimalPlaces));
+    return roundedNumber.toLocaleString('en-US', { minimumFractionDigits: decimalPlaces, maximumFractionDigits: decimalPlaces });
+}
 
 const displayProducts = (products) => {
     const container = document.getElementById('productContainer');
@@ -54,19 +58,29 @@ const displayProducts = (products) => {
             const productElement = document.createElement('div');
             productElement.classList.add('productElement');
             productElement.innerHTML = `
-                <img src="${product.images[0]}"/>
-                <button class='prev-slide' >previous</button>
-                <button class='next-slide' >next</button>
-                <h3>${product.title}</h3>
-                <p>Price: ${product.price}</p>
-                <button class="details-button" data-product-id="${product.id}">View Details</button>
-                <hr>
+                 <div class='thumbnail'>
+                    <div class='absolute'></div>
+                    <img src="${product.thumbnail}"/>
+                </div>
+                <span class='category'>${product.category.charAt(0).toUpperCase() + product.category.slice(1)}</span>
+                <div class='info'>
+                    <span>${product.title}</span>
+                </div>
+                <div class= 'price'>
+                    <div>
+                        <span style="text-decoration: line-through" ><span>&#36;</span>${product.price}.00</span>
+                        <span><span>&#36;</span>${roundToDecimal(product.price - product.price * product.discountPercentage / 100, 2)}</span>
+                    </div>
+                    <div>Save:<span><span>&#36;</span>${roundToDecimal(product.price * product.discountPercentage / 100, 2)}</span><span>(${roundToDecimal(product.discountPercentage,1)}%)</span></div>
+                </div>
+                <button class="details-button" data-product-id="${product.id}">Get More Information</button>
+                <span class="stock">${product.stock} left in stock</span>
             `;
             container.appendChild(productElement);
         }
     }
 
-    
+
 
     const detailsButtons = document.querySelectorAll('.details-button');
     detailsButtons.forEach(button => {
@@ -158,7 +172,7 @@ const displayProductDetails = (product) => {
         <p>Price: ${product.price}</p>
         <p>Description: ${product.description}</p>
         <button onclick="clearProductDetails()">Close Details</button>
-    `;  
+    `;
 
 };
 
@@ -174,8 +188,8 @@ const clearProductDetails = () => {
     detailsContainer.style.display = 'none';
     detailsContainer.innerHTML = '';
     fetchData(totalAPIurl, storedPage);
-    
-    
+
+
 };
 
 fetchData(totalAPIurl);

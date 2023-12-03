@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700");
+/* @font-face {
+  font-family: 'rocher';
+  src: url('./fonts/rocher-jewel.ttf') format('truetype');
+} */
+@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
 
 * {
   font-family: Roboto, sans-serif;
@@ -27,6 +32,7 @@ body {
   background-image: url("./flat-design-polygonal-background/5176471.jpg");
   background-position: center;
   background-size: cover;
+  background-attachment: fixed;
 }
 
 #searchContainer {
@@ -38,20 +44,132 @@ body {
 }
 
 .productElement {
-  height: 400px;
+  /* height: 453px; */
   width: 24%;
   /* border: 1px solid green; */
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   background-color: rgb(67, 80, 119);
   margin-bottom: 10px;
-  padding-top: 5px;
+  display: flex;
+  align-items: baseline;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 10px; */
 }
 
-.productElement > img{
-    width: 100%;
-    height: 200px;
+.thumbnail {
+  width: 99%;
+  height: 250px;
+  border-top-right-radius: 18px;
+  border-top-left-radius: 18px;
+  border: 8px solid rgb(130, 156, 224);
+  position: relative;
 }
+
+.absolute{
+  width: 103%;
+  height: 103%;
+  top: -4px;
+  left: -4px;
+  border-top-right-radius: 14px;
+  border-top-left-radius: 14px;
+  position: absolute;
+  border: 1px solid white;
+}
+
+.thumbnail > img {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  width: 100%;
+  height: 100%;
+}
+.info{
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.info > span:first-of-type{
+  font-family: 'Nova Square', sans-serif;
+  color: rgb(130, 156, 224);
+  color: gold;
+  /* color:rgb(121, 173, 175); */
+  font-size: 20px;
+}
+
+.category{
+  width: 100%;
+  font-family: 'Nova Square', sans-serif;
+  color:rgb(192, 172, 140);
+  color:orangered;
+  color: gold;
+  font-size: 12px;
+  padding-left: 10px;
+  margin-bottom: 6px;
+
+}
+
+.price{
+  width: 100%;
+  padding-left: 2px;
+  padding-left: 10px;
+  margin-top: 6px;
+}
+.price > div:first-of-type{
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.price > div:first-of-type > span:first-of-type{
+  font-family: 'Nova Square', sans-serif;
+  font-size: 14px;
+  color: yellow;
+}
+.price > div:first-of-type > span:last-of-type{
+  font-family: 'Nova Square', sans-serif;
+  font-size: 16px;
+  color:gold ;
+}
+
+
+.price > div:last-of-type{
+  font-family: 'Nova Square', sans-serif;
+  font-size: 16px;
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+  margin-top: 3px;
+  color: gold;
+}
+
+.details-button{
+  height: 40px;
+  width: 70%;
+  margin-top: 20px;
+  border-radius: 5px;
+  border: none;
+  font-family: 'Nova Square', sans-serif;
+  font-size: 15px;
+  background-color: gold;
+  color: rgb(67, 80, 119);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.stock{
+  margin-top: 6px;
+  font-family: 'Nova Square', sans-serif;
+  font-size: 12px;
+  color:rgb(192, 172, 140);
+  margin-bottom: 30px;
+}
+
+
 
 .search > div {
   display: inline-block;
@@ -97,6 +215,3 @@ body {
 .search > div > input:not(:placeholder-shown) {
   width: 250px;
 }
-
-
-
