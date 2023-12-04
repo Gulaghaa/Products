@@ -3,7 +3,7 @@
   font-family: 'rocher';
   src: url('./fonts/rocher-jewel.ttf') format('truetype');
 } */
-@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nova+Square&display=swap");
 
 * {
   font-family: Roboto, sans-serif;
@@ -45,10 +45,10 @@ body {
   /* border: 1px solid red; */
 }
 
-#categorySelect{
+#categorySelect {
   width: 200px;
   height: 30px;
-  font-family: 'Nova Square', sans-serif;
+  font-family: "Nova Square", sans-serif;
   background-color: rgb(67, 80, 119);
   border: 1px solid yellow;
   color: gold;
@@ -57,7 +57,7 @@ body {
   /* background-color: gold; */
 }
 
-#pagination{
+#pagination {
   height: 7vh;
   /* border: 1px solid red; */
   display: flex;
@@ -67,8 +67,8 @@ body {
   gap: 10px;
 }
 
-.page-item{
-  font-family: 'Nova Square', sans-serif;
+.page-item {
+  font-family: "Nova Square", sans-serif;
   font-size: 20px;
   height: 90%;
   border: none;
@@ -76,9 +76,10 @@ body {
   border-radius: 5px;
 }
 
-.page-item:hover{
+.page-item:hover {
   background-color: rgb(67, 80, 119);
   color: gold;
+  border: 1px solid gold;
 }
 
 .productElement {
@@ -105,7 +106,7 @@ body {
   position: relative;
 }
 
-.absolute{
+.absolute {
   width: 103%;
   height: 103%;
   top: -4px;
@@ -122,7 +123,7 @@ body {
   width: 100%;
   height: 100%;
 }
-.info{
+.info {
   width: 100%;
   padding: 5px;
   display: flex;
@@ -131,52 +132,50 @@ body {
   gap: 4px;
 }
 
-.info > span:first-of-type{
-  font-family: 'Nova Square', sans-serif;
+.info > span:first-of-type {
+  font-family: "Nova Square", sans-serif;
   color: rgb(130, 156, 224);
   color: gold;
   /* color:rgb(121, 173, 175); */
   font-size: 20px;
 }
 
-.category{
+.category {
   width: 100%;
-  font-family: 'Nova Square', sans-serif;
-  color:rgb(192, 172, 140);
-  color:orangered;
+  font-family: "Nova Square", sans-serif;
+  color: rgb(192, 172, 140);
+  color: orangered;
   color: gold;
   font-size: 12px;
   padding-left: 10px;
   margin-bottom: 6px;
-
 }
 
-.price{
+.price {
   width: 100%;
   padding-left: 2px;
   padding-left: 10px;
   margin-top: 6px;
 }
-.price > div:first-of-type{
+.price > div:first-of-type {
   display: flex;
   gap: 4px;
   align-items: flex-end;
 }
 
-.price > div:first-of-type > span:first-of-type{
-  font-family: 'Nova Square', sans-serif;
+.price > div:first-of-type > span:first-of-type {
+  font-family: "Nova Square", sans-serif;
   font-size: 14px;
   color: yellow;
 }
-.price > div:first-of-type > span:last-of-type{
-  font-family: 'Nova Square', sans-serif;
+.price > div:first-of-type > span:last-of-type {
+  font-family: "Nova Square", sans-serif;
   font-size: 16px;
-  color:gold ;
+  color: gold;
 }
 
-
-.price > div:last-of-type{
-  font-family: 'Nova Square', sans-serif;
+.price > div:last-of-type {
+  font-family: "Nova Square", sans-serif;
   font-size: 16px;
   display: flex;
   gap: 4px;
@@ -185,13 +184,13 @@ body {
   color: gold;
 }
 
-.details-button{
+.details-button {
   height: 40px;
   width: 70%;
   margin-top: 20px;
   border-radius: 5px;
   border: none;
-  font-family: 'Nova Square', sans-serif;
+  font-family: "Nova Square", sans-serif;
   font-size: 15px;
   background-color: gold;
   color: rgb(67, 80, 119);
@@ -199,15 +198,13 @@ body {
   cursor: pointer;
 }
 
-.stock{
+.stock {
   margin-top: 6px;
-  font-family: 'Nova Square', sans-serif;
+  font-family: "Nova Square", sans-serif;
   font-size: 12px;
-  color:rgb(192, 172, 140);
+  color: rgb(192, 172, 140);
   margin-bottom: 30px;
 }
-
-
 
 .search > div {
   display: inline-block;
@@ -254,23 +251,163 @@ body {
   width: 250px;
 }
 
-
 @media only screen and (max-width: 1100px) {
-  .productElement{
+  .productElement {
     width: 32%;
   }
 }
 
 @media only screen and (max-width: 890px) {
-  .productElement{
+  .productElement {
     width: 49%;
   }
 }
 @media only screen and (max-width: 610px) {
-  .productElement{
+  .productElement {
     width: 100%;
   }
-  #productContainer{
+  #productContainer {
     padding-left: 0px;
   }
 }
+
+#productDetails {
+  /* border: 1px solid red; */
+  display: flex;
+  margin-top: 90px;
+}
+
+.left-detail {
+  width: 50%;
+  height: 100%;
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+.right-detail {
+  width: 50%;
+  height: 100%;
+  /* border: 1px solid red; */
+}
+
+.main-image {
+  width: 514px;
+  border-radius:20px ;
+  aspect-ratio: 1/1;
+  height: auto;
+  border: 8px solid orangered; /* Maintains aspect ratio */
+}
+
+.thumbnail-gallery {
+  width: 80%;
+  height: 85px;
+  /* border: 1px solid red; */
+  display: flex;
+  overflow-x: auto;
+  justify-content: center;
+  gap: 6px;
+}
+
+.thumbnail-detail {
+  width: 85px;
+  aspect-ratio: 100/110;
+  border-radius: 10px;
+  height: auto; /* Maintains aspect ratio */
+  cursor: pointer; /* Indicates that thumbnails are clickable */
+  border: 1px solid #ccc;
+  border: 3px solid gold;
+  opacity: 0.6;
+}
+
+.thumbnail-detail:hover,
+.thumbnail-detail:focus {
+  border: 3px solid orangered;
+  opacity: 1; /* Thumbnails are fully opaque when hovered or focused */
+}
+
+.right-detail{
+  display: flex;
+  flex-direction: column;
+  padding-top: 115px;
+}
+
+.detail-category{
+  font-family: "Nova Square", sans-serif;
+  font-size: 18px;
+  color: gold;
+  margin-bottom: 10px;
+}
+
+.detail-title{
+  font-family: "Nova Square", sans-serif;
+  font-size: 35px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.detail-description{
+  font-family: "Nova Square", sans-serif;
+  font-size: 15px;
+  color: yellow;
+}
+
+.detail-price {
+  width: 100%;
+  margin-top: 6px;
+}
+.detail-price > div:first-of-type {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+  margin-top: 20px;
+}
+
+.detail-price > div:first-of-type > span:first-of-type {
+  font-family: "Nova Square", sans-serif;
+  font-size: 20px;
+  color: yellow;
+}
+.detail-price > div:first-of-type > span:last-of-type {
+  font-family: "Nova Square", sans-serif;
+  font-size: 22px;
+  color: gold;
+}
+
+.detail-price > div:last-of-type {
+  font-family: "Nova Square", sans-serif;
+  font-size: 20px;
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+  margin-top: 3px;
+  color: orangered;
+}
+
+.specification{
+  font-family: "Nova Square", sans-serif;
+  font-size: 15px;
+  color: gold;
+}
+
+.specification> span:last-of-type{
+  color: white;
+}
+
+.arrow-left{
+  border: 2px solid gold;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 3px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+.arrow-left > i{
+  font-size: 40px;
+  color: gold;
+}
+

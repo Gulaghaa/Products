@@ -31,7 +31,7 @@ fetchCategories();
 
 const handleCategoryChange = () => {
     selectedCategory = document.getElementById('categorySelect').value;
-    currentPage = 1; 
+    currentPage = 1;
     fetchData(totalAPIurl);
 };
 
@@ -103,7 +103,7 @@ const displayProducts = (products) => {
                         <span style="text-decoration: line-through" ><span>&#36;</span>${product.price}.00</span>
                         <span><span>&#36;</span>${roundToDecimal(product.price - product.price * product.discountPercentage / 100, 2)}</span>
                     </div>
-                    <div>Save:<span><span>&#36;</span>${roundToDecimal(product.price * product.discountPercentage / 100, 2)}</span><span>(${roundToDecimal(product.discountPercentage,1)}%)</span></div>
+                    <div>Save:<span><span>&#36;</span>${roundToDecimal(product.price * product.discountPercentage / 100, 2)}</span><span>(${roundToDecimal(product.discountPercentage, 1)}%)</span></div>
                 </div>
                 <button class="details-button" data-product-id="${product.id}">Get More Information</button>
                 <span class="stock">${product.stock} left in stock</span>
@@ -138,8 +138,9 @@ const renderPagination = () => {
         pageItem.classList.add('page-item');
 
         if (i === currentPage) {
-            pageItem.style.backgroundColor = '#007BFF';
-            pageItem.style.color = '#fff';
+            pageItem.style.backgroundColor = 'rgb(67, 80, 119)';
+            pageItem.style.color = 'gold';
+            pageItem.style.border = '1px solid gold'
         }
 
         pageItem.addEventListener('click', () => changePage(i));
@@ -208,15 +209,54 @@ const displayProductDetails = (product) => {
     productContainer.style.display = 'none';
     paginationContainer.style.display = 'none';
     searchContainer.style.display = 'none';
-    detailsContainer.style.display = 'block';
+    detailsContainer.style.display = 'flex';
 
     detailsContainer.innerHTML = `
-        <h2>${product.title}</h2>
-        <p>Price: ${product.price}</p>
-        <p>Description: ${product.description}</p>
-        <button onclick="clearProductDetails()">Close Details</button>
-    `;
+    <div class="left-detail">
+    <button onclick="clearProductDetails()" class="arrow-left"><i class="fas fa-chevron-left"></i></button>
+    <img src="${product.images[0]}" alt="desciption" id="main-image" class="main-image">
+        <div class="thumbnail-gallery">
+        ${createThumbnailGallery(product.images)}
+        </div>
+    </div>
+    <div class="right-detail">
+        <span class='detail-category'>${product.category.charAt(0).toUpperCase() + product.category.slice(1)}</span>
+        <span class='detail-title'>${product.title}</span>
+        <span class='detail-description'>${product.description}</span>
+        <div class='detail-price'>
+            <div>
+                <span style="text-decoration: line-through" ><span>&#36;</span>${product.price}.00</span>
+                <span><span>&#36;</span>${roundToDecimal(product.price - product.price * product.discountPercentage / 100, 2)}</span>
+                </div>
+            <div>Save:<span><span>&#36;</span>${roundToDecimal(product.price * product.discountPercentage / 100, 2)}</span><span>(${roundToDecimal(product.discountPercentage, 1)}%)</span></div>
+        </div>
+        <div class="specification" style="margin-top:50px">
+            <span>Brand:</span>
+            <span>${product.brand}</span>
+        </div>
+        <div class="specification">
+            <span>Product Rate:</span>
+            <span>${product.rating}</span>
+        </div>
+        <div class="specification">
+            <span>Availability:</span>
+            <span>${product.stock}</span>
+        </div>
+    </div>
+
+`;
 };
+
+function updateMainImage(src) {
+    const mainImage = document.getElementById('main-image');
+    mainImage.src = src;
+}
+
+function createThumbnailGallery(images) {
+    return images.map(image =>
+        `<img src="${image}" alt="Product Image" class="thumbnail-detail" onclick="updateMainImage('${image}')">`
+    ).join('');
+}
 
 const clearProductDetails = () => {
     const productContainer = document.getElementById('productContainer');
@@ -225,7 +265,7 @@ const clearProductDetails = () => {
     const searchContainer = document.getElementById('searchContainer');
 
     productContainer.style.display = 'flex';
-    paginationContainer.style.display = 'block';
+    paginationContainer.style.display = 'flex';
     searchContainer.style.display = 'flex'
     detailsContainer.style.display = 'none';
     detailsContainer.innerHTML = '';
