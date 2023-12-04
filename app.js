@@ -6,6 +6,7 @@ let storedPage = 1;
 let searchQuery = '';
 const totalAPIurl = 'https://dummyjson.com/products?limit=100';
 
+
 const fetchCategories = async () => {
     try {
         const response = await axios.get('https://dummyjson.com/products/categories');
