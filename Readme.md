@@ -6,6 +6,10 @@ Experience the application live through the GitHub Pages hosted demo:
 
 [Live Demo on GitHub Pages](https://gulaghaa.github.io/Products/)
 
+## Preview
+Here's a quick look at the application in action:
+
+https://github.com/Gulaghaa/Products/assets/95527921/f63aa0f7-65c9-4679-9488-e953a423491c
 
 ## Overview
 This app fetches live data from an online database, making it easy for you to search and filter products effortlessly by category or text.
